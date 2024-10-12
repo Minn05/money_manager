@@ -29,20 +29,19 @@ class ApiImpl implements Api {
         amount: -100),
   ];
 
-  Future<void> delay() async {
-    await Future.delayed(const Duration(seconds: 1));
-  }
-
   ApiImpl(this.log) {
     _data.sort((a, b) => b.dateTime.compareTo(a.dateTime));
   }
 
+  Future<void> delay() async {
+    await Future.delayed(Duration(seconds: 1));
+  }
+
   @override
-  Future<bool> checkLogin(Login login) {
-    delay();
-    if (login.username == "1" && login.password == "1") {
+  Future<bool> checkLogin(Login login) async {
+    await delay();
+    if (login.username == '1' && login.password == '1')
       return Future(() => true);
-    }
     return Future(() => false);
   }
 
@@ -66,7 +65,7 @@ class ApiImpl implements Api {
         return;
       }
     }
-    throw Exception("Can not found data");
+    throw Exception("Not found data");
   }
 
   @override
@@ -78,7 +77,7 @@ class ApiImpl implements Api {
         return;
       }
     }
-    throw Exception("Can not found data");
+    throw Exception("Not found data");
   }
 
   @override
@@ -93,7 +92,7 @@ class ApiImpl implements Api {
   }
 
   @override
-  Future<double> getTotals() async {
+  Future<double> getTotal() async {
     await delay();
     double total = 0;
     for (int i = 0; i < _data.length; i++) {
@@ -105,11 +104,11 @@ class ApiImpl implements Api {
   @override
   Future<List<Transaction>> getTransactions(String month) async {
     await delay();
-    Set<Transaction> r = {};
+    List<Transaction> r = [];
     for (int i = 0; i < _data.length; i++) {
       var tmp = _data[i].dateTime.substring(0, 7);
       if (month.startsWith(tmp)) r.add(_data[i]);
     }
-    return r.toList();
+    return r;
   }
 }

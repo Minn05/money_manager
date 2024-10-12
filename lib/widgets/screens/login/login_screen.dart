@@ -48,12 +48,14 @@ class Page extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       TextField(
-                        decoration: const InputDecoration(labelText: "Username"),
+                        decoration:
+                            const InputDecoration(labelText: "Username"),
                         onChanged: (value) => _username = value,
                       ),
                       TextField(
-                        decoration: const InputDecoration(labelText: "Password"),
-                        onChanged: (value) => _password = value,
+                        decoration:
+                            const InputDecoration(labelText: "Password"),
+                        onChanged: (value) => _username = value,
                       ),
                       const SizedBox(height: 16),
                       ElevatedButton(

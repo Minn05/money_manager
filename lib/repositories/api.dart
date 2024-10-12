@@ -4,7 +4,7 @@ import 'package:money_manager/models/transaction.dart';
 abstract class Api {
   Future<bool> checkLogin(Login login);
 
-  Future<double> getTotals();
+  Future<double> getTotal();
 
   Future<List<String>> getMonths();
 

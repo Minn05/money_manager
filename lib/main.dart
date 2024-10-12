@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_manager/main_cubit.dart';
 import 'package:money_manager/repositories/api.dart';
 import 'package:money_manager/repositories/api_impl.dart';
@@ -45,6 +44,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SafeArea(
       child: MaterialApp(
+        title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         onGenerateRoute: mainRoute,
         initialRoute: LoginScreen.route,
