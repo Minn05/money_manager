@@ -2,7 +2,7 @@ import 'package:money_manager/models/login.dart';
 import 'package:money_manager/models/transaction.dart';
 
 abstract class Api {
-  Future<void> checkLogin(Login login);
+  Future<bool> checkLogin(Login login);
 
   Future<double> getTotals();
 
