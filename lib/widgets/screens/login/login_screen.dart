@@ -55,7 +55,7 @@ class Page extends StatelessWidget {
                       TextField(
                         decoration:
                             const InputDecoration(labelText: "Password"),
-                        onChanged: (value) => _username = value,
+                        onChanged: (value) => _password = value,
                       ),
                       const SizedBox(height: 16),
                       ElevatedButton(

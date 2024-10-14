@@ -1,17 +1,31 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 class Transaction {
   final String dateTime;
   final String title;
   final String content;
   final double amount;
-  Transaction({
+
+//<editor-fold desc="Data Methods">
+  const Transaction({
     required this.dateTime,
     required this.title,
     required this.content,
     required this.amount,
   });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Transaction &&
+          runtimeType == other.runtimeType &&
+          dateTime == other.dateTime &&
+          title == other.title &&
+          content == other.content &&
+          amount == other.amount);
+
+  @override
+  int get hashCode =>
+      dateTime.hashCode ^ title.hashCode ^ content.hashCode ^ amount.hashCode;
+
 
   Transaction copyWith({
     String? dateTime,
@@ -28,11 +42,11 @@ class Transaction {
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'dateTime': dateTime,
-      'title': title,
-      'content': content,
-      'amount': amount,
+    return {
+      'dateTime': this.dateTime,
+      'title': this.title,
+      'content': this.content,
+      'amount': this.amount,
     };
   }
 
@@ -45,31 +59,5 @@ class Transaction {
     );
   }
 
-  String toJson() => json.encode(toMap());
-
-  factory Transaction.fromJson(String source) =>
-      Transaction.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() {
-    return 'Transaction(dateTime: $dateTime, title: $title, content: $content, amount: $amount)';
-  }
-
-  @override
-  bool operator ==(covariant Transaction other) {
-    if (identical(this, other)) return true;
-
-    return other.dateTime == dateTime &&
-        other.title == title &&
-        other.content == content &&
-        other.amount == amount;
-  }
-
-  @override
-  int get hashCode {
-    return dateTime.hashCode ^
-        title.hashCode ^
-        content.hashCode ^
-        amount.hashCode;
-  }
+//</editor-fold>
 }
