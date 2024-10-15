@@ -5,8 +5,8 @@ class MainState {
   final DrawerItem selected;
 
   const MainState.init({
-     this.isLightTheme = false,
-     this.selected = DrawerItem.Home,
+    this.isLightTheme = true,
+    this.selected = DrawerItem.Home,
   });
 
 //<editor-fold desc="Data Methods">

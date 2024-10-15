@@ -12,6 +12,7 @@ import 'package:money_manager/widgets/screens/setting/setting_screen.dart';
 import '../../../common/enum/load_status.dart';
 import '../../../common/enum/screen_size.dart';
 import '../../common_widget/notification_bar.dart';
+import '../add_edit/add_edit_screen.dart';
 
 class ListItemScreen extends StatelessWidget {
   static const String route = "ListItemScreen";
@@ -31,10 +32,8 @@ class Page extends StatelessWidget {
     return BlocBuilder<ListItemCubit, ListItemState>(
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: Colors.white,
           appBar: AppBar(
             title: const Text("Money Manager"),
-            backgroundColor: Colors.tealAccent,
           ),
           body: Body(),
           drawer: state.screenSize == ScreenSize.Large
@@ -42,6 +41,14 @@ class Page extends StatelessWidget {
               : Drawer(
                   child: MenuScreen(),
                 ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              var cubit = context.read<ListItemCubit>();
+              Navigator.of(context).pushNamed(AddEditScreen.route,
+                  arguments: {'cubit': cubit, 'isAddMode': true});
+            },
+            child: Icon(Icons.add),
+          ),
         );
       },
     );
@@ -169,13 +176,21 @@ class ListItemPage extends StatelessWidget {
                         ),
                         subtitle: Text(item.content),
                         trailing: IconButton(
-                            onPressed: () {
-                              cubit.removeItem(item.dateTime);
-                            },
-                            icon: const Icon(
-                              Icons.highlight_remove_outlined,
-                              color: Colors.grey,
-                            )),
+                          onPressed: () {
+                            cubit.removeItem(item.dateTime);
+                          },
+                          icon: const Icon(
+                            Icons.highlight_remove_outlined,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        onTap: () {
+                          cubit.setSelectedIndex(index);
+                          if (state.screenSize == ScreenSize.Small) {
+                            Navigator.of(context).pushNamed(DetailScreen.route,
+                                arguments: {'cubit': cubit});
+                          }
+                        },
                       ),
                     );
                   },

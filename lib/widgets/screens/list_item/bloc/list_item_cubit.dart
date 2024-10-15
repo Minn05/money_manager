@@ -28,6 +28,26 @@ class ListItemCubit extends Cubit<ListItemState> {
     }
   }
 
+  Future<void> addItem(Transaction transaction) async {
+    emit(state.copyWith(loadStatus: LoadStatus.Loading));
+    try {
+      await api.addTransaction(transaction);
+      await loadData(state.selectedMonth);
+    } catch (e) {
+      emit(state.copyWith(loadStatus: LoadStatus.Error));
+    }
+  }
+
+  Future<void> editeItem(Transaction transaction) async {
+    emit(state.copyWith(loadStatus: LoadStatus.Loading));
+    try {
+      await api.editTransaction(transaction);
+      await loadData(state.selectedMonth);
+    } catch (e) {
+      emit(state.copyWith(loadStatus: LoadStatus.Error));
+    }
+  }
+
   Future<void> removeItem(String dateTime) async {
     emit(state.copyWith(loadStatus: LoadStatus.Loading));
     try {
@@ -38,7 +58,11 @@ class ListItemCubit extends Cubit<ListItemState> {
     }
   }
 
-  void setScreenSize (ScreenSize screenSize){
-    emit(state.copyWith(screenSize:  screenSize));
+  void setScreenSize(ScreenSize screenSize) {
+    emit(state.copyWith(screenSize: screenSize));
+  }
+
+  void setSelectedIndex(int selectedIndex) {
+    emit(state.copyWith(selectedIndex: selectedIndex));
   }
 }

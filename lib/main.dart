@@ -33,10 +33,8 @@ class SimpleBlocObserver extends BlocObserver {
   }
 
   @override
-  void onTransition(
-    Bloc<dynamic, dynamic> bloc,
-    Transition<dynamic, dynamic> transition,
-  ) {
+  void onTransition(Bloc<dynamic, dynamic> bloc,
+      Transition<dynamic, dynamic> transition,) {
     super.onTransition(bloc, transition);
     log.i(TAG, 'onTransition: ${bloc.runtimeType}, transition: $transition');
   }
@@ -69,9 +67,10 @@ class Repository extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider<Api>(
-      create: (context) => ApiImpl(
-        context.read<Log>(),
-      ),
+      create: (context) =>
+          ApiImpl(
+            context.read<Log>(),
+          ),
       child: Provider(),
     );
   }
@@ -90,12 +89,19 @@ class Provider extends StatelessWidget {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: mainRoute,
-        initialRoute: LoginScreen.route,
+    return SafeArea(
+      child: BlocBuilder<MainCubit, MainState>(
+        builder: (context, state) {
+          return MaterialApp(
+            darkTheme: ThemeData.dark(),
+            theme: ThemeData.light(),
+            themeMode: state.isLightTheme? ThemeMode.light: ThemeMode.dark,
+            title: 'Flutter Demo',
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: mainRoute,
+            initialRoute: LoginScreen.route,
+          );
+        },
       ),
     );
   }
